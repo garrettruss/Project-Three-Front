@@ -1,0 +1,29 @@
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 3rem;
+    padding-left: 1rem;
+    background-color: green;
+    box-shadow: 3px 3px 3px 3px #808080;
+    color: #ffffff;
+}
+
+header>ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+}
+
+header>ul li {
+    margin-right: 10px;
+}
+
+header>ul li:hover {
+    cursor: pointer;
+}
+
+header>ul img {
+    height: 2.5rem;
+    border-radius: 50%;
+}

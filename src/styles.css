@@ -13,45 +13,18 @@ body {
   flex-direction: column;
 }
 
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 3rem;
-  padding-left: 1rem;
-  background-color: #737495;
-  box-shadow: 3px 3px 3px 3px #808080;
-  color: #ffffff;
-}
-
-header>ul {
-  list-style: none;
-  display: flex;
-  align-items: center;
-}
-
-header>ul li {
-  margin-right: 10px;
-}
-
-header>ul li:hover {
-  cursor: pointer;
-}
 
 .auth-link:hover {
   cursor: pointer;
 }
 
-header>ul img {
-  height: 2.5rem;
-  border-radius: 50%;
-}
 
 main {
   flex-grow: 1;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 3%;
 }
 
 section>article {
@@ -59,8 +32,10 @@ section>article {
   justify-content: space-between;
   min-width: 15rem;
   color: white;
-  margin: 0.1rem;
-  background-color: #737495;
+  margin: 1%;
+  padding: 1%;
+  background-color: darkgreen;
+  
 }
 
 article>div {
@@ -113,4 +88,8 @@ button {
 button:hover {
   color: white;
   background-color: #737495;
+}
+
+form {
+  margin-top: 5%;
 }

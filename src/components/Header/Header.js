@@ -1,4 +1,5 @@
 import { login, logout } from '../../services/firebase';
+import "./Header.css";
 
 const Header = (props) => (
     <header>

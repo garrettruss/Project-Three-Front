@@ -11,12 +11,19 @@ export default function App() {
       difficulty: "4", 
       date: "2021-04-01",
       firstTime: "No",
+      list: "NH 4000 Footer Club",
+      weather: "Mid 40s, foggy, gusty",
+      comment: "The Peak was crowded with tourists who drove up"
+
     }],
     newMountain: {
       mountain: "",
-      difficulty: "4",
+      difficulty: "",
       date: "",
-      firstTime: "No",
+      firstTime: "",
+      list: "",
+      weather: "",
+      comment: ""
     },
   });
 
@@ -65,9 +72,12 @@ export default function App() {
       mountains: [...prevState.mountains, prevState.newMountain],
       newMountain: {
         mountain: "",
-        difficulty: "4",
+        difficulty: "",
         date: "",
-        firstTime: "No",
+        firstTime: "",
+        list: "",
+        weather: "",
+        comment: ""
       },
     }));
   }
@@ -91,7 +101,13 @@ export default function App() {
         <section>
           {state.mountains.map((s) => (
             <article key={s.mountain}>
-              <div>{s.mountain}</div> <div>{s.difficulty}</div><div>{s.date}</div><div>{s.firstTime}</div>
+              <div>{s.mountain}</div>
+              <div>{s.difficulty}</div>
+              <div>{s.date}</div>
+              <div>{s.firstTime}</div>
+              <div>{s.list}</div>
+              <div>{s.weather}</div>
+              <div>{s.comment}</div>
             </article>
           ))}
 
@@ -148,6 +164,41 @@ export default function App() {
                     <option value="No">No</option>
                   </select>
 
+                </label>
+
+                <label>
+                  <span>Peak List</span>
+                  <select
+                    name="list"
+                    value={state.newMountain.list}
+                    onChange={handleChange}
+                  >
+                    <option value="NH 4000 Footer Club">NH 4000 Footer Club</option>
+                    <option value="VT 4000 Footer Club">VT 4000 Footer Club</option>
+                    <option value="ME 4000 Footer Club">ME 4000 Footer Club</option>
+                    <option value="State Highpoints">State Highpoints</option>
+                    <option value="Adirondack High Peaks">Adirondack High Peaks</option>
+                  </select>
+                </label>
+
+                <label>
+                  <span>Weather</span>
+                  
+                  <input
+                    name="weather"
+                    value={state.newMountain.weather}
+                    onChange={handleChange}
+                  />
+                </label>
+
+                <label>
+                  <span>Comments</span>
+                  
+                  <input
+                    name="comment"
+                    value={state.newMountain.comment}
+                    onChange={handleChange}
+                  />
                 </label>
 
                 <button>ADD Mountain</button>

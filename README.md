@@ -23,12 +23,13 @@ Current functionaliy:  Users can log in and create and read entries.
 
 ## Getting Started
 
-[view here](https://stupefied-easley-bef2b6.netlify.app/) to see the app.
-[view here] (https://trello.com/b/OdtgR4TS/project-3/) to see trello board.
+* [view here](https://stupefied-easley-bef2b6.netlify.app/) to see the app.
+* [view here] (https://trello.com/b/OdtgR4TS/project-3/) to see trello board.
 
 ### Unsolved Issues
 
 * Associating user with entries.
+* Sorting results by list.
 
 ### Future Enhancements
 

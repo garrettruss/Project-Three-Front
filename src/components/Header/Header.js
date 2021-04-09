@@ -3,17 +3,17 @@ import "./Header.css";
 
 const Header = (props) => (
     <header>
-        <h1>Peak Baggers Log</h1>
+        <h1>Peak Bagger Log</h1>
         <ul>
             {
                 props.user ?
                 <>
                     <li>Welcome, {props.user.displayName}</li>
                     <li><img src={props.user.photoURL} alt={props.user.displayName} /></li>
-                    <li onClick={logout}>Logout</li>
+                    <li className="auth-link" onClick={logout}>Logout</li>
                 </>
                 :
-                <li onClick={login}>Login</li>
+                <li className="auth-link" onClick={login}>Login</li>
             }
         </ul>
     </header>

@@ -1,21 +1,14 @@
 import { useState, useEffect } from "react";
-import "./styles.css";
 import Header from "./components/Header/Header";
-import { login, logout, auth } from "./services/firebase";
+import "./styles.css";
+
+import { auth } from "./services/firebase";
+
 export default function App() {
 
   const [state, setState] = useState({
     user: null,
-    mountains: [{ 
-      mountain: "Mt. Washington", 
-      difficulty: "4", 
-      date: "2021-04-01",
-      firstTime: "No",
-      list: "NH 4000 Footer Club",
-      weather: "Mid 40s, foggy, gusty",
-      comment: "The Peak was crowded with tourists who drove up"
-
-    }],
+    mountains: [],
     newMountain: {
       mountain: "",
       difficulty: "",
@@ -23,75 +16,168 @@ export default function App() {
       firstTime: "",
       list: "",
       weather: "",
-      comment: ""
+      comment: "",
     },
+    editMode: false
   });
 
 
   async function getAppData() {
-    const BASE_URL = "http://localhost:3001/api/mountains";
-    const mountains = await fetch(BASE_URL).then((res) => res.json());
-    setState((prevState) => ({
-      ...prevState,
-      mountains,
-    }));
+    if(!state.user) return;
+    try {
+      const BASE_URL = `http://localhost:3001/api/mountains?uid=${state.user.uid}`;
+      const mountains = await fetch(BASE_URL).then(res => res.json());
+      setState((prevState) => ({
+        ...prevState,
+        mountains,
+      }));
+    } catch (error) {
+      console.log(error)
+    }
   }
 
 
   useEffect(() => {
     getAppData();
-    auth.onAuthStateChanged((user) => {
-      if (user) {
-        setState((prevState) => ({
+    
+    auth.onAuthStateChanged(user => {
+      if(user) {
+        setState(prevState => ({
           ...prevState,
           user,
         }));
       } else {
-        setState((prevState) => ({
+        setState(prevState => ({
           ...prevState,
-          user: null,
+          mountains: [],
+          user,
         }));
       }
     });
-  }, []);
+
+  }, [state.user]);
 
 
-  async function addMountain(e) {
-    if (!state.user) return;
+
+  async function handleSubmit(e) {
+    if(!state.user) return;
+    
     e.preventDefault();
-    const BASE_URL = "http://localhost:3001/api/mountains";
-    const mountain = await fetch(BASE_URL, {
-      method: "POST",
-      headers: {
-        "Content-type": "Application/json",
+    
+    const BASE_URL = 'http://localhost:3001/api/mountains';
+
+    if(!state.editMode) {
+
+      const mountains = await fetch(BASE_URL, {
+        method: 'POST',
+        headers: {
+          'Content-type': 'Application/json'
+        },
+        body: JSON.stringify({...state.newMountain, uid: state.user.uid })
+      }).then(res => res.json());
+      
+      setState((prevState) => ({
+        ...prevState,
+        mountains,
+        newMountain: {
+          mountain: "",
+          difficulty: "",
+          date: "",
+          firstTime: "",
+          list: "",
+          weather: "",
+          comment: ""
       },
-      body: JSON.stringify(state.newMountain),
-    }).then((res) => res.json());
-    setState((prevState) => ({
-      ...prevState,
-      mountains: [...prevState.mountains, prevState.newMountain],
-      newMountain: {
-        mountain: "",
-        difficulty: "",
-        date: "",
-        firstTime: "",
-        list: "",
-        weather: "",
-        comment: ""
+      }));
+    } else {
+      const { mountain, difficulty, date, firstTime, list, weather, comment, _id } = state.newMountain;
+
+      const mountains = await fetch(`${BASE_URL}/${_id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-type': 'Application/json'
+        },
+        body: JSON.stringify({ mountain, difficulty, date, firstTime, list, weather, comment })
+      }).then(res => res.json());
+
+      setState(prevState => ({
+        ...prevState,
+         mountains,
+        newMountain: {
+          mountain: "",
+          difficulty: "",
+          date: "",
+          firstTime: "",
+          list: "",
+          weather: "",
+          comment: ""
       },
-    }));
+        editMode: false
+      }));
+    }
   }
 
 
   function handleChange(e) {
     setState((prevState) => ({
-      ...prevState,
+      ...prevState, 
       newMountain: {
         ...prevState.newMountain,
-        [e.target.name]: e.target.value,
-      },
+        [e.target.name]: e.target.value 
+      }
+    })) 
+  }
+
+  async function handleDelete(mountainId) {
+    if(!state.user) return;
+    const URL = `http://localhost:3001/api/mountains/${mountainId}`;
+    
+    const mountains = await fetch(URL, {
+      method: 'DELETE'
+    }).then(res => res.json());
+
+    setState(prevState => ({
+      ...prevState,
+      mountains,
     }));
   }
+
+  function handleEdit(mountainId) {
+    const { mountain, difficulty, date, firstTime, list, weather, comment, _id } = state.mountains.find(mountain => mountain._id === mountainId);
+    setState(prevState => ({
+      ...prevState,
+      newMountain: {
+        mountain,
+        difficulty,
+        date,
+        firstTime,
+        list,
+        weather,
+        comment,
+        _id
+      },
+      editMode: true
+    }));
+  }
+
+  function handleCancel() {
+    setState(prevState => ({
+      ...prevState,
+       newMountain: {
+        mountain,
+        difficulty,
+        date,
+        firstTime,
+        list,
+        weather,
+        comment,
+      },
+      editMode: false
+    }));
+  }
+
+
+
 
 
   return (
@@ -108,13 +194,16 @@ export default function App() {
               <div>{s.list}</div>
               <div>{s.weather}</div>
               <div>{s.comment}</div>
+              <div onClick={() => handleDelete(s._id)}>{"🚫"}</div>
+              { !state.editMode && <div onClick={() => handleEdit(s._id)}>{"✏️"}</div> }
             </article>
           ))}
 
-          {state.user && (
+          {
+            state.user && 
             <>
               <hr />
-              <form onSubmit={addMountain}>
+              <form onSubmit={handleSubmit}>
                 <label>
                   <span>Mountain</span>
                   
@@ -200,12 +289,11 @@ export default function App() {
                     onChange={handleChange}
                   />
                 </label>
-
-                <button>ADD Mountain</button>
-
+                  <button>{state.editMode ? 'EDIT Mountain' : 'ADD Mountain'}</button>
               </form>
+                {state.editMode && <button onClick={handleCancel}>CANCEL</button> }
             </>
-          )}
+          }
         </section>
       </main>
     </>

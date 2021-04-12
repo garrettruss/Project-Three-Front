@@ -178,25 +178,36 @@ export default function App() {
 
 
 
-
-
   return (
     <>
       <Header user={state.user} />
       <main>
         <section>
           {state.mountains.map((s) => (
-            <article key={s.mountain}>
-              <div>{s.mountain}</div>
-              <div>{s.difficulty}</div>
-              <div>{s.date}</div>
-              <div>{s.firstTime}</div>
-              <div>{s.list}</div>
-              <div>{s.weather}</div>
-              <div>{s.comment}</div>
-              <div onClick={() => handleDelete(s._id)}>{"🚫"}</div>
-              { !state.editMode && <div onClick={() => handleEdit(s._id)}>{"✏️"}</div> }
-            </article>
+            <table key={s.mountain}>
+              <tr>
+                <th>mountain</th>
+                <th>difficulty</th>
+                <th>date</th>
+                <th>firstTime</th>
+                <th>list</th>
+                <th>weather</th>
+                <th>comment</th>
+                <th>edit</th>
+                <th>delete</th>
+              </tr>
+              <tr>
+                <td>{s.mountain}</td>
+                <td>{s.difficulty}</td>
+                <td>{s.date}</td>
+                <td>{s.firstTime}</td>
+                <td>{s.list}</td>
+                <td>{s.weather}</td>
+                <td>{s.comment}</td>
+                <td onClick={() => handleEdit(s._id)}>{"✏️"}</td>
+                <td onClick={() => handleDelete(s._id)}>{"🚫"}</td>
+              </tr>
+            </table>
           ))}
 
           {
@@ -296,6 +307,11 @@ export default function App() {
           }
         </section>
       </main>
+      <footer>
+        <p>
+          
+        </p>
+      </footer>
     </>
   );
 }

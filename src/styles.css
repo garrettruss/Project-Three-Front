@@ -51,7 +51,10 @@ main {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 3%;
 }
+
+
 
 section>article {
   display: flex;
@@ -109,4 +112,18 @@ button {
 button:hover {
   color: white;
   background-color: #737495;
+}
+
+table {
+  margin: 1%;
+  width: 95%;
+  border-collapse: collapse;
+}
+
+th {
+  height: 70px;
+}
+
+td {
+  text-align: center;
 }

@@ -114,16 +114,33 @@ button:hover {
   background-color: #737495;
 }
 
+ .results {
+   margin: 5%;
+ }
+
 table {
-  margin: 1%;
-  width: 95%;
+  table-layout: fixed;
+  width: 100%;
   border-collapse: collapse;
+  border: 1px black solid;
 }
 
 th {
   height: 70px;
+  border: 1px black solid;
 }
 
 td {
   text-align: center;
+  padding: 0.5rem;
+  border-bottom: 1px solid black;
+  border-right: 1px solid black;
+  border: 1px black solid;
+  width: 25%;
+}
+
+.inputs {
+  border: 3%;
+  padding: 3%;
+  margin: 3%;
 }

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import Header from "./components/Header/Header";
+import Footer from "./components/Footer/Footer";
 import "./styles.css";
 
 import { auth } from "./services/firebase";
@@ -183,8 +184,9 @@ export default function App() {
       <Header user={state.user} />
       <main>
         <section>
-          {state.mountains.map((s) => (
-            <table key={s.mountain}>
+      <div className="results">
+         
+            <table user ={state.user}> 
               <tr>
                 <th>mountain</th>
                 <th>difficulty</th>
@@ -196,7 +198,8 @@ export default function App() {
                 <th>edit</th>
                 <th>delete</th>
               </tr>
-              <tr>
+     {state.mountains.map((s) => (
+              <tr key={s.mountain}>
                 <td>{s.mountain}</td>
                 <td>{s.difficulty}</td>
                 <td>{s.date}</td>
@@ -207,16 +210,18 @@ export default function App() {
                 <td onClick={() => handleEdit(s._id)}>{"✏️"}</td>
                 <td onClick={() => handleDelete(s._id)}>{"🚫"}</td>
               </tr>
-            </table>
+            
           ))}
+          </table>
+          </div>
 
           {
             state.user && 
             <>
               <hr />
-              <form onSubmit={handleSubmit}>
+              <form className='form' onSubmit={handleSubmit}>
                 <label>
-                  <span>Mountain</span>
+                  <span classname="inputs">Mountain </span>
                   
                   <input
                     name="mountain"
@@ -226,7 +231,7 @@ export default function App() {
                 </label>
 
                 <label>
-                  <span>Difficulty</span>
+                  <span classname="inputs">Difficulty </span>
                   <select
                     name="difficulty"
                     value={state.newMountain.difficulty}
@@ -241,7 +246,7 @@ export default function App() {
                 </label>
 
                 <label>
-                  <span>Date of Hike</span>
+                  <span classname="inputs">Date of Hike </span>
                   <input
                     type="date" 
                     name="date"
@@ -254,7 +259,7 @@ export default function App() {
 
                 
                 <label>
-                  <span>First time hiking this mountain?</span>
+                  <span classname="inputs">First time hiking this mountain? </span>
                   <select
                     name="firstTime"
                     value={state.newMountain.firstTime}
@@ -267,7 +272,7 @@ export default function App() {
                 </label>
 
                 <label>
-                  <span>Peak List</span>
+                  <span classname="inputs">Peak List </span>
                   <select
                     name="list"
                     value={state.newMountain.list}
@@ -282,7 +287,7 @@ export default function App() {
                 </label>
 
                 <label>
-                  <span>Weather</span>
+                  <span classname="inputs">Weather </span>
                   
                   <input
                     name="weather"
@@ -292,8 +297,8 @@ export default function App() {
                 </label>
 
                 <label>
-                  <span>Comments</span>
-                  
+                  <span classname="inputs">Comments </span>
+               
                   <input
                     name="comment"
                     value={state.newMountain.comment}
@@ -307,11 +312,7 @@ export default function App() {
           }
         </section>
       </main>
-      <footer>
-        <p>
-          
-        </p>
-      </footer>
+      <Footer />
     </>
   );
 }

@@ -15,6 +15,7 @@ body {
   flex-direction: column;
 }
 
+
 main {
   flex-grow: 1;
   display: flex;
@@ -54,7 +55,10 @@ button:hover {
 
 table {
   table-layout:auto;
+  height: 100%;
   width: 100%;
+  padding: 1%;
+  margin: 5%;
   margin-left: 3%;
   margin-right: 3%;
   border-collapse: collapse;
@@ -65,10 +69,11 @@ table {
   height: 100%;
   width: 100%;
   padding: 1%;
-  margin: 1%;
+  margin: 5%;
   border: 1px black solid;
   border-bottom: 1px solid black;
   border-right: 1px solid black;
+  text-overflow: clip;
 }
 
 label {

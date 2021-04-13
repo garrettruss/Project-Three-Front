@@ -12,7 +12,7 @@ export default function App() {
     newMountain: {
       mountain: "",
       difficulty: "",
-      state: "",
+      date: "",
       firstTime: "",
       list: "",
       weather: "",
@@ -25,7 +25,7 @@ export default function App() {
   async function getAppData() {
     if(!state.user) return;
     try {
-      const BASE_URL = `https://project3back.herokuapp.com/api/mountains?uid=${state.user.uid}`;
+      const BASE_URL = `http://localhost:3001/api/mountains?uid=${state.user.uid}`;
       const mountains = await fetch(BASE_URL).then(res => res.json());
       setState((prevState) => ({
         ...prevState,
@@ -39,8 +39,8 @@ export default function App() {
 
   useEffect(() => {
     getAppData();
-
-  auth.onAuthStateChanged(user => {
+    
+    auth.onAuthStateChanged(user => {
       if(user) {
         setState(prevState => ({
           ...prevState,
@@ -64,7 +64,7 @@ export default function App() {
     
     e.preventDefault();
     
-    const BASE_URL = 'https://project3back.herokuapp.com/api/mountains';
+    const BASE_URL = 'http://localhost:3001/api/mountains';
 
     if(!state.editMode) {
 
@@ -82,7 +82,7 @@ export default function App() {
         newMountain: {
           mountain: "",
           difficulty: "",
-          state: "",
+          date: "",
           firstTime: "",
           list: "",
           weather: "",
@@ -90,14 +90,14 @@ export default function App() {
       },
       }));
     } else {
-      const { mountain, difficulty, state, firstTime, list, weather, comment, _id } = state.newMountain;
+      const { mountain, difficulty, date, firstTime, list, weather, comment, _id } = state.newMountain;
 
       const mountains = await fetch(`${BASE_URL}/${_id}`, {
         method: 'PUT',
         headers: {
           'Content-type': 'Application/json'
         },
-        body: JSON.stringify({ mountain, difficulty, state, firstTime, list, weather, comment })
+        body: JSON.stringify({ mountain, difficulty, date, firstTime, list, weather, comment })
       }).then(res => res.json());
 
       setState(prevState => ({
@@ -106,7 +106,7 @@ export default function App() {
         newMountain: {
           mountain: "",
           difficulty: "",
-          state: "",
+          date: "",
           firstTime: "",
           list: "",
           weather: "",
@@ -130,9 +130,8 @@ export default function App() {
 
   async function handleDelete(mountainId) {
     if(!state.user) return;
-    const URL = `https://project3back.herokuapp.com/api/mountains/${mountainId}`;
+    const URL = `http://localhost:3001/api/mountains/${mountainId}`;
     
-
     const mountains = await fetch(URL, {
       method: 'DELETE'
     }).then(res => res.json());
@@ -144,13 +143,13 @@ export default function App() {
   }
 
   function handleEdit(mountainId) {
-    const { mountain, difficulty, state, firstTime, list, weather, comment, _id } = state.mountains.find(mountain => mountain._id === mountainId);
+    const { mountain, difficulty, date, firstTime, list, weather, comment, _id } = state.mountains.find(mountain => mountain._id === mountainId);
     setState(prevState => ({
       ...prevState,
       newMountain: {
         mountain,
         difficulty,
-        state,
+        date,
         firstTime,
         list,
         weather,
@@ -167,7 +166,7 @@ export default function App() {
        newMountain: {
         mountain,
         difficulty,
-        state,
+        date,
         firstTime,
         list,
         weather,
@@ -183,7 +182,7 @@ export default function App() {
     <>
       <Header user={state.user} />
       <main>
-          <div className="results" >
+           <div className="results" >
             {state.user &&
               <table > 
                 <tbody>
@@ -217,15 +216,15 @@ export default function App() {
             }
              
           </div>
-        
+         
+
           {
             state.user && 
             <>
               <hr />
-              <form className='form' onSubmit={handleSubmit}>
-
+              <form onSubmit={handleSubmit}>
                 <label>
-                  <span className='inputs'>Mountain</span>
+                  <span>Mountain</span>
                   
                   <input
                     name="mountain"
@@ -235,7 +234,7 @@ export default function App() {
                 </label>
 
                 <label>
-                  <span className='inputs'>Difficulty</span>
+                  <span>Difficulty</span>
                   <select
                     name="difficulty"
                     value={state.newMountain.difficulty}
@@ -249,7 +248,7 @@ export default function App() {
                   </select>
                 </label>
 
-                <label>
+              <label>
                   <span className='inputs'>State</span>
                   <select
                     name="difficulty"
@@ -310,9 +309,10 @@ export default function App() {
                   </select>
                 </label>
 
+
                 
                 <label>
-                  <span className='inputs'>First time hiking this mountain?</span>
+                  <span>First time hiking this mountain?</span>
                   <select
                     name="firstTime"
                     value={state.newMountain.firstTime}
@@ -325,7 +325,7 @@ export default function App() {
                 </label>
 
                 <label>
-                  <span className='inputs'>Peak List</span>
+                  <span>Peak List</span>
                   <select
                     name="list"
                     value={state.newMountain.list}
@@ -340,7 +340,7 @@ export default function App() {
                 </label>
 
                 <label>
-                  <span className='inputs'>Weather</span>
+                  <span>Weather</span>
                   
                   <input
                     name="weather"
@@ -350,7 +350,7 @@ export default function App() {
                 </label>
 
                 <label>
-                  <span className='inputs'>Comments</span>
+                  <span>Comments</span>
                   
                   <input
                     name="comment"
@@ -363,6 +363,7 @@ export default function App() {
                 {state.editMode && <button onClick={handleCancel}>CANCEL</button> }
             </>
           }
+    
       </main>
     </>
   );

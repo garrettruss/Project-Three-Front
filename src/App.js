@@ -4,6 +4,9 @@ import "./styles.css";
 
 import { auth } from "./services/firebase";
 
+import {fetchMountains} from './services/api-service';
+import {deleteMountain} from './services/api-service';
+
 export default function App() {
 
   const [state, setState] = useState({
@@ -25,8 +28,7 @@ export default function App() {
   async function getAppData() {
     if(!state.user) return;
     try {
-      const BASE_URL = `http://localhost:3001/api/mountains?uid=${state.user.uid}`;
-      const mountains = await fetch(BASE_URL).then(res => res.json());
+      const mountains = await fetchMountains(state.user.uid);
       setState((prevState) => ({
         ...prevState,
         mountains,
@@ -39,8 +41,8 @@ export default function App() {
 
   useEffect(() => {
     getAppData();
-    
-    auth.onAuthStateChanged(user => {
+
+    const cancelSubscription = auth.onAuthStateChanged(user => {
       if(user) {
         setState(prevState => ({
           ...prevState,
@@ -55,6 +57,10 @@ export default function App() {
       }
     });
 
+    return function() { // cleanup function
+      cancelSubscription();
+    }
+
   }, [state.user]);
 
 
@@ -64,7 +70,7 @@ export default function App() {
     
     e.preventDefault();
     
-    const BASE_URL = 'http://localhost:3001/api/mountains';
+    const BASE_URL = 'https://project3back.herokuapp.com/api/mountains';
 
     if(!state.editMode) {
 
@@ -130,11 +136,7 @@ export default function App() {
 
   async function handleDelete(mountainId) {
     if(!state.user) return;
-    const URL = `http://localhost:3001/api/mountains/${mountainId}`;
-    
-    const mountains = await fetch(URL, {
-      method: 'DELETE'
-    }).then(res => res.json());
+    const mountains = await deleteMountain(skillId);
 
     setState(prevState => ({
       ...prevState,
@@ -184,7 +186,7 @@ export default function App() {
       <main>
         <section>
       <div className="results">
-            <table user ={state.user}> 
+            <table > 
               <tr>
                 <th>mountain</th>
                 <th>difficulty</th>

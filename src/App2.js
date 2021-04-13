@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import Header from "./components/Header/Header";
-import "./styles.css";
-
+import "./styles.css"; 
 import { auth } from "./services/firebase";
 
+
 export default function App() {
+
+
 
   const [state, setState] = useState({
     user: null,

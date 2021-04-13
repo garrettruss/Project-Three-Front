@@ -21,7 +21,7 @@ This single page app is designed for hikers to log in and record entries in a pe
 
 ## Getting Started
 
-* [view here](https://stupefied-easley-bef2b6.netlify.app/) to see the app.
+* [view here](https://react-mountains-log.netlify.app) to see the app.
 * [view here] (https://trello.com/b/OdtgR4TS/project-3/) to see trello board.
 
 ### Unsolved Issues

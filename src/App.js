@@ -15,7 +15,7 @@ export default function App() {
     newMountain: {
       mountain: "",
       difficulty: "",
-      date: "",
+      state: "",
       firstTime: "",
       list: "",
       weather: "",
@@ -88,7 +88,7 @@ export default function App() {
         newMountain: {
           mountain: "",
           difficulty: "",
-          date: "",
+          state: "",
           firstTime: "",
           list: "",
           weather: "",
@@ -96,14 +96,14 @@ export default function App() {
       },
       }));
     } else {
-      const { mountain, difficulty, date, firstTime, list, weather, comment, _id } = state.newMountain;
+      const { mountain, difficulty, state, firstTime, list, weather, comment, _id } = state.newMountain;
 
       const mountains = await fetch(`${BASE_URL}/${_id}`, {
         method: 'PUT',
         headers: {
           'Content-type': 'Application/json'
         },
-        body: JSON.stringify({ mountain, difficulty, date, firstTime, list, weather, comment })
+        body: JSON.stringify({ mountain, difficulty, state, firstTime, list, weather, comment })
       }).then(res => res.json());
 
       setState(prevState => ({
@@ -112,7 +112,7 @@ export default function App() {
         newMountain: {
           mountain: "",
           difficulty: "",
-          date: "",
+          state: "",
           firstTime: "",
           list: "",
           weather: "",
@@ -145,13 +145,13 @@ export default function App() {
   }
 
   function handleEdit(mountainId) {
-    const { mountain, difficulty, date, firstTime, list, weather, comment, _id } = state.mountains.find(mountain => mountain._id === mountainId);
+    const { mountain, difficulty, state, firstTime, list, weather, comment, _id } = state.mountains.find(mountain => mountain._id === mountainId);
     setState(prevState => ({
       ...prevState,
       newMountain: {
         mountain,
         difficulty,
-        date,
+        state,
         firstTime,
         list,
         weather,
@@ -168,7 +168,7 @@ export default function App() {
        newMountain: {
         mountain,
         difficulty,
-        date,
+        state,
         firstTime,
         list,
         weather,
@@ -184,45 +184,48 @@ export default function App() {
     <>
       <Header user={state.user} />
       <main>
-        <section>
-      <div className="results">
-            <table > 
-              <tr>
-                <th>mountain</th>
-                <th>difficulty</th>
-                <th>date</th>
-                <th>firstTime</th>
-                <th>list</th>
-                <th>weather</th>
-                <th>comment</th>
-                <th>edit</th>
-                <th>delete</th>
-              </tr>
-     {state.mountains.map((s) => (
-              <tr key={s.mountain}>
-                <td>{s.mountain}</td>
-                <td>{s.difficulty}</td>
-                <td>{s.date}</td>
-                <td>{s.firstTime}</td>
-                <td>{s.list}</td>
-                <td>{s.weather}</td>
-                <td>{s.comment}</td>
-                <td onClick={() => handleEdit(s._id)}>{"✏️"}</td>
-                <td onClick={() => handleDelete(s._id)}>{"🚫"}</td>
-              </tr>
-            
-          ))}
-          </table>
+          <div className="results" >
+            {state.user &&
+              <table > 
+                <tbody>
+                  <tr>
+                    <th>Mountain</th>
+                    <th>Difficulty</th>
+                    <th>State</th>
+                    <th>First Time?</th>
+                    <th>List</th>
+                    <th>Weather</th>
+                    <th>Comment</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                  </tr>
+                  
+                  {state.mountains.map((s) => (
+                    <tr key={s.mountain}>
+                      <td>{s.mountain}</td>
+                      <td>{s.difficulty}</td>
+                      <td>{s.state}</td>
+                      <td>{s.firstTime}</td>
+                      <td>{s.list}</td>
+                      <td>{s.weather}</td>
+                      <td>{s.comment}</td>
+                      <td onClick={() => handleEdit(s._id)}>{"✏️"}</td>
+                      <td onClick={() => handleDelete(s._id)}>{"🚫"}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            }
+             
           </div>
-         
-
+        
           {
             state.user && 
             <>
               <hr />
-              <form onSubmit={handleSubmit}>
+              <form className='form' onSubmit={handleSubmit}>
                 <label>
-                  <span>Mountain</span>
+                  <span className='inputs'>Mountain</span>
                   
                   <input
                     name="mountain"
@@ -232,7 +235,7 @@ export default function App() {
                 </label>
 
                 <label>
-                  <span>Difficulty</span>
+                  <span className='inputs'>Difficulty</span>
                   <select
                     name="difficulty"
                     value={state.newMountain.difficulty}
@@ -247,20 +250,69 @@ export default function App() {
                 </label>
 
                 <label>
-                  <span>Date of Hike</span>
-                  <input
-                    type="date" 
-                    name="date"
-                    min="2018-01-01" 
-                    max="2021-12-31"
-                    value={state.newMountain.date}
+                  <span className='inputs'>State</span>
+                  <select
+                    name="difficulty"
+                    value={state.newMountain.state}
                     onChange={handleChange}
-                    />
+                  >
+                   	<option value="AL">Alabama</option>
+                    <option value="AK">Alaska</option>
+                    <option value="AZ">Arizona</option>
+                    <option value="AR">Arkansas</option>
+                    <option value="CA">California</option>
+                    <option value="CO">Colorado</option>
+                    <option value="CT">Connecticut</option>
+                    <option value="DE">Delaware</option>
+                    <option value="DC">District Of Columbia</option>
+                    <option value="FL">Florida</option>
+                    <option value="GA">Georgia</option>
+                    <option value="HI">Hawaii</option>
+                    <option value="ID">Idaho</option>
+                    <option value="IL">Illinois</option>
+                    <option value="IN">Indiana</option>
+                    <option value="IA">Iowa</option>
+                    <option value="KS">Kansas</option>
+                    <option value="KY">Kentucky</option>
+                    <option value="LA">Louisiana</option>
+                    <option value="ME">Maine</option>
+                    <option value="MD">Maryland</option>
+                    <option value="MA">Massachusetts</option>
+                    <option value="MI">Michigan</option>
+                    <option value="MN">Minnesota</option>
+                    <option value="MS">Mississippi</option>
+                    <option value="MO">Missouri</option>
+                    <option value="MT">Montana</option>
+                    <option value="NE">Nebraska</option>
+                    <option value="NV">Nevada</option>
+                    <option value="NH">New Hampshire</option>
+                    <option value="NJ">New Jersey</option>
+                    <option value="NM">New Mexico</option>
+                    <option value="NY">New York</option>
+                    <option value="NC">North Carolina</option>
+                    <option value="ND">North Dakota</option>
+                    <option value="OH">Ohio</option>
+                    <option value="OK">Oklahoma</option>
+                    <option value="OR">Oregon</option>
+                    <option value="PA">Pennsylvania</option>
+                    <option value="RI">Rhode Island</option>
+                    <option value="SC">South Carolina</option>
+                    <option value="SD">South Dakota</option>
+                    <option value="TN">Tennessee</option>
+                    <option value="TX">Texas</option>
+                    <option value="UT">Utah</option>
+                    <option value="VT">Vermont</option>
+                    <option value="VA">Virginia</option>
+                    <option value="WA">Washington</option>
+                    <option value="WV">West Virginia</option>
+                    <option value="WI">Wisconsin</option>
+                    <option value="WY">Wyoming</option>
+                  </select>
                 </label>
 
                 
                 <label>
-                  <span>First time hiking this mountain?</span>
+                  <span className='inputs'>First time hiking this mountain?</span>
                   <select
                     name="firstTime"
                     value={state.newMountain.firstTime}
@@ -273,7 +325,7 @@ export default function App() {
                 </label>
 
                 <label>
-                  <span>Peak List</span>
+                  <span className='inputs'>Peak List</span>
                   <select
                     name="list"
                     value={state.newMountain.list}
@@ -288,7 +340,7 @@ export default function App() {
                 </label>
 
                 <label>
-                  <span>Weather</span>
+                  <span className='inputs'>Weather</span>
                   
                   <input
                     name="weather"
@@ -298,7 +350,7 @@ export default function App() {
                 </label>
 
                 <label>
-                  <span>Comments</span>
+                  <span className='inputs'>Comments</span>
                   
                   <input
                     name="comment"
@@ -311,7 +363,6 @@ export default function App() {
                 {state.editMode && <button onClick={handleCancel}>CANCEL</button> }
             </>
           }
-        </section>
       </main>
     </>
   );

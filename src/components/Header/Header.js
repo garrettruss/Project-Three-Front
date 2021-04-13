@@ -8,7 +8,7 @@ const Header = (props) => (
             {
                 props.user ?
                 <>
-                    <li>Welcome, {props.user.displayName}</li>
+                    <li> Welcome, {props.user.displayName}! You are logged in with {props.user.email}</li>
                     <li><img src={props.user.photoURL} alt={props.user.displayName} /></li>
                     <li className="auth-link" onClick={logout}>Logout</li>
                 </>

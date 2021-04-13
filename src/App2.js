@@ -12,7 +12,7 @@ export default function App() {
     newMountain: {
       mountain: "",
       difficulty: "",
-      state: "",
+      date: "",
       firstTime: "",
       list: "",
       weather: "",
@@ -82,7 +82,7 @@ export default function App() {
         newMountain: {
           mountain: "",
           difficulty: "",
-          state: "",
+          date: "",
           firstTime: "",
           list: "",
           weather: "",
@@ -97,7 +97,7 @@ export default function App() {
         headers: {
           'Content-type': 'Application/json'
         },
-        body: JSON.stringify({ mountain, difficulty, state, firstTime, list, weather, comment })
+        body: JSON.stringify({ mountain, difficulty, date, firstTime, list, weather, comment })
       }).then(res => res.json());
 
       setState(prevState => ({
@@ -106,7 +106,7 @@ export default function App() {
         newMountain: {
           mountain: "",
           difficulty: "",
-          state: "",
+          date: "",
           firstTime: "",
           list: "",
           weather: "",
@@ -143,13 +143,13 @@ export default function App() {
   }
 
   function handleEdit(mountainId) {
-    const { mountain, difficulty, state, firstTime, list, weather, comment, _id } = state.mountains.find(mountain => mountain._id === mountainId);
+    const { mountain, difficulty, date, firstTime, list, weather, comment, _id } = state.mountains.find(mountain => mountain._id === mountainId);
     setState(prevState => ({
       ...prevState,
       newMountain: {
         mountain,
         difficulty,
-        state,
+        date,
         firstTime,
         list,
         weather,
@@ -166,7 +166,7 @@ export default function App() {
        newMountain: {
         mountain,
         difficulty,
-        state,
+        date,
         firstTime,
         list,
         weather,
@@ -249,7 +249,7 @@ export default function App() {
                 </label>
 
               <label>
-                  <span>State</span>
+                  <span className='inputs'>State</span>
                   <select
                     name="difficulty"
                     value={state.newMountain.state}

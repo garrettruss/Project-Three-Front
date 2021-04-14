@@ -3,7 +3,8 @@ import Header from "./components/Header/Header";
 import HikeInfo from "./components/HikeInfo/HikeInfo";
 import "./styles.css"; 
 import { auth } from "./services/firebase";
-import { Route, Switch } from 'react-router-dom';
+
+
 
 
 
@@ -27,6 +28,7 @@ export default function App() {
   async function getAppData() {
     if(!state.user) return;
     try {
+  
       const BASE_URL = `http://localhost:3001/api/mountains?uid=${state.user.uid}`;
       //const BASE_URL = `https://project3back.herokuapp.com/api/mountains?uid=${state.user.uid}`
       const mountains = await fetch(BASE_URL).then(res => res.json());
@@ -182,10 +184,13 @@ export default function App() {
   return (
     <>
       <Header user={state.user} />
+       
   
         <main>
+           
            <div  className="results" >
             {state.user &&
+           
               <table > 
                 <tbody>
                   <tr>
@@ -359,11 +364,9 @@ export default function App() {
                   <button>{state.editMode ? 'EDIT Mountain' : 'ADD Mountain'}</button>
               </form>
                 {state.editMode && <button onClick={handleCancel}>CANCEL</button> }
+                <HikeInfo />
             </>
           }
-           
-          <HikeInfo />
-      
     
       </main>
       

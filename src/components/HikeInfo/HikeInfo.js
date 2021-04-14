@@ -1,10 +1,13 @@
+
 import "./HikeInfo.css";
 
-export default function HikeInfo() {
-	return (
-		<section className="hike-info">
-			<h1>Hikes Near You</h1>
-			
-		</section>
-	);
-}
+const HikeInfo = (props) => (
+    <div>
+        <h1>Brief History</h1>
+        <p>
+            The sport of peak bagging began with..
+        </p>
+    </div>
+); 
+
+export default HikeInfo;

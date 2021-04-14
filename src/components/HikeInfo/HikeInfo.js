@@ -1,18 +1,22 @@
-
+import React from 'react';
 import "./HikeInfo.css";
+;
 
 const HikeInfo = (props) => (
     <div>
-         <ul>
             {
                 props.user ?
                 <>
-                    <p>Hiking is the best!</p>
+                   <div classname="userScreen">
+                    
+                    <hr></hr>
+                   </div>
                 </>
                 :
-                <p>Do you even hike?</p>
+                <div className='noUserScreen'>
+                    Welcome to our Peak Bagger Log site. This site is dedicated for those who dream of peaks and want to remember what they have done! 
+                </div>
             }
-        </ul>
     </div>
 ); 
 

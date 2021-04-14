@@ -2,3 +2,31 @@
     background-color: #0b7a0b;
     color: #ffffff;
 }
+
+.noUserScreen {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    padding: 10%;
+    border:10%;
+    margin:10%;
+    color: black;
+    font: 900;
+    font-size: 1.7rem;
+    background-image: url('../../Images/kalen-emsley-Bkci_8qcdvQ-unsplash.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height:fit-content;
+}
+
+
+
+.userScreenInfo {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    padding: 5%;
+    border: 5%;
+    margin: 5%;
+
+}

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Header from "./components/Header/Header";
 import HikeInfo from "./components/HikeInfo/HikeInfo";
+import SimpleSlider from "./components/HikeInfo/Carousel";
 import "./styles.css"; 
 import { auth } from "./services/firebase";
 
@@ -185,12 +186,14 @@ export default function App() {
     <>
       <Header user={state.user} />
         <HikeInfo user={state.user}/>
+        
   
         <main>
              
            <div  className="results" >
+             
             {state.user &&
-           
+              
               <table > 
                 <tbody>
                   <tr>
@@ -364,7 +367,7 @@ export default function App() {
                   <button>{state.editMode ? 'EDIT Mountain' : 'ADD Mountain'}</button>
               </form>
                 {state.editMode && <button onClick={handleCancel}>CANCEL</button> }
-               
+               <SimpleSlider user={state.user} />
             </>
           }
     

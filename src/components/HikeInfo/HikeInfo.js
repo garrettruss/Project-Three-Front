@@ -3,11 +3,21 @@ import "./HikeInfo.css";
 
 const HikeInfo = (props) => (
     <div>
-        <h1>Brief History</h1>
-        <p>
-            The sport of peak bagging began with..
-        </p>
+         <ul>
+            {
+                props.user ?
+                <>
+                    <p>Hiking is the best!</p>
+                </>
+                :
+                <p>Do you even hike?</p>
+            }
+        </ul>
     </div>
 ); 
 
 export default HikeInfo;
+
+
+
+

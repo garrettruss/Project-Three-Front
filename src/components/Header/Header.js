@@ -4,7 +4,7 @@ import "./Header.css";
 const Header = (props) => (
     <header>
         <h1>Peak Bagger Log</h1>
-        <ul>
+         <ul>
             {
                 props.user ?
                 <>
@@ -13,7 +13,7 @@ const Header = (props) => (
                     <li className="auth-link" onClick={logout}>Logout</li>
                 </>
                 :
-                <li className="auth-link" onClick={login}>Login</li>
+                <li className="auth-link" onClick={login}>Welcome, please login to continue!</li>
             }
         </ul>
     </header>

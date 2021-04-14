@@ -184,10 +184,10 @@ export default function App() {
   return (
     <>
       <Header user={state.user} />
-       
+        <HikeInfo user={state.user}/>
   
         <main>
-           
+             
            <div  className="results" >
             {state.user &&
            
@@ -364,7 +364,7 @@ export default function App() {
                   <button>{state.editMode ? 'EDIT Mountain' : 'ADD Mountain'}</button>
               </form>
                 {state.editMode && <button onClick={handleCancel}>CANCEL</button> }
-                <HikeInfo />
+               
             </>
           }
     

@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import Header from "./components/Header/Header";
+import HikeInfo from "./components/HikeInfo/HikeInfo";
 import "./styles.css"; 
 import { auth } from "./services/firebase";
+import { Route, Switch } from 'react-router-dom';
 
 
 
@@ -12,9 +14,9 @@ export default function App() {
     mountains: [],
     newMountain: {
       mountain: "",
-      location: "",
-      firstTime: "",
-      list: "",
+      location: "RI",
+      firstTime: "No",
+      list: "State Highpoints",
       weather: "",
       comment: "",
     },
@@ -83,9 +85,9 @@ export default function App() {
         mountains,
         newMountain: {
           mountain: "",
-          location: "",
-          firstTime: "",
-          list: "",
+          location: "RI",
+          firstTime: "No",
+          list: "State Highpoints",
           weather: "",
           comment: "",
       },
@@ -105,10 +107,10 @@ export default function App() {
         ...prevState,
          mountains,
         newMountain: {
-          mountain: "",
-          location: "",
-          firstTime: "",
-          list: "",
+         mountain: "",
+          location: "RI",
+          firstTime: "No",
+          list: "State Highpoints",
           weather: "",
           comment: "",
       },
@@ -180,7 +182,8 @@ export default function App() {
   return (
     <>
       <Header user={state.user} />
-      <main>
+  
+        <main>
            <div  className="results" >
             {state.user &&
               <table > 
@@ -196,16 +199,16 @@ export default function App() {
                     <th>Delete</th>
                   </tr>
                   
-                  {state.mountains.map((s) => (
-                    <tr key={s.mountain}>
-                      <td>{s.mountain}</td>
-                      <td>{s.location}</td>
-                      <td>{s.firstTime}</td>
-                      <td>{s.list}</td>
-                      <td>{s.weather}</td>
-                      <td>{s.comment}</td>
-                      <td onClick={() => handleEdit(s._id)}>{"✏️"}</td>
-                      <td onClick={() => handleDelete(s._id)}>{"🚫"}</td>
+                  {state.mountains.map((m) => (
+                    <tr key={m.mountain}>
+                      <td>{m.mountain}</td>
+                      <td>{m.location}</td>
+                      <td>{m.firstTime}</td>
+                      <td>{m.list}</td>
+                      <td>{m.weather}</td>
+                      <td>{m.comment}</td>
+                      <td onClick={() => handleEdit(m._id)}>{"✏️"}</td>
+                      <td onClick={() => handleDelete(m._id)}>{"🚫"}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -358,8 +361,12 @@ export default function App() {
                 {state.editMode && <button onClick={handleCancel}>CANCEL</button> }
             </>
           }
+           
+          <HikeInfo />
+      
     
       </main>
+      
     </>
   );
 }

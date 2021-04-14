@@ -4,6 +4,7 @@ import "./styles.css";
 import { auth } from "./services/firebase";
 
 
+
 export default function App() {
 
 
@@ -184,7 +185,7 @@ export default function App() {
     <>
       <Header user={state.user} />
       <main>
-           <div className="results" >
+           <div  className="results" >
             {state.user &&
               <table > 
                 <tbody>

@@ -1,10 +1,9 @@
-//This version has a bug 
-
 import { useState, useEffect } from "react";
 import Header from "./components/Header/Header";
-import "./styles.css";
-
+import "./styles.css"; 
 import { auth } from "./services/firebase";
+
+
 
 export default function App() {
 
@@ -13,8 +12,7 @@ export default function App() {
     mountains: [],
     newMountain: {
       mountain: "",
-      difficulty: "",
-      state: "",
+      location: "",
       firstTime: "",
       list: "",
       weather: "",
@@ -27,7 +25,8 @@ export default function App() {
   async function getAppData() {
     if(!state.user) return;
     try {
-      const BASE_URL = `https://project3back.herokuapp.com/api/mountains?uid=${state.user.uid}`;
+      const BASE_URL = `http://localhost:3001/api/mountains?uid=${state.user.uid}`;
+      //const BASE_URL = `https://project3back.herokuapp.com/api/mountains?uid=${state.user.uid}`
       const mountains = await fetch(BASE_URL).then(res => res.json());
       setState((prevState) => ({
         ...prevState,
@@ -41,8 +40,8 @@ export default function App() {
 
   useEffect(() => {
     getAppData();
-
-  auth.onAuthStateChanged(user => {
+    
+    auth.onAuthStateChanged(user => {
       if(user) {
         setState(prevState => ({
           ...prevState,
@@ -66,7 +65,8 @@ export default function App() {
     
     e.preventDefault();
     
-    const BASE_URL = 'https://project3back.herokuapp.com/api/mountains';
+    const BASE_URL = 'http://localhost:3001/api/mountains';
+    //const BASE_URL = 'https://project3back.herokuapp.com/api/mountains';
 
     if(!state.editMode) {
 
@@ -83,23 +83,22 @@ export default function App() {
         mountains,
         newMountain: {
           mountain: "",
-          difficulty: "",
-          state: "",
+          location: "",
           firstTime: "",
           list: "",
           weather: "",
-          comment: ""
+          comment: "",
       },
       }));
     } else {
-      const { mountain, difficulty, state, firstTime, list, weather, comment, _id } = state.newMountain;
+      const { mountain, location, firstTime, list, weather, comment, _id } = state.newMountain;
 
       const mountains = await fetch(`${BASE_URL}/${_id}`, {
         method: 'PUT',
         headers: {
           'Content-type': 'Application/json'
         },
-        body: JSON.stringify({ mountain, difficulty, state, firstTime, list, weather, comment })
+        body: JSON.stringify({ mountain, location, firstTime, list, weather, comment })
       }).then(res => res.json());
 
       setState(prevState => ({
@@ -107,12 +106,11 @@ export default function App() {
          mountains,
         newMountain: {
           mountain: "",
-          difficulty: "",
-          state: "",
+          location: "",
           firstTime: "",
           list: "",
           weather: "",
-          comment: ""
+          comment: "",
       },
         editMode: false
       }));
@@ -132,9 +130,9 @@ export default function App() {
 
   async function handleDelete(mountainId) {
     if(!state.user) return;
-    const URL = `https://project3back.herokuapp.com/api/mountains/${mountainId}`;
+    const URL = `http://localhost:3001/api/mountains/${mountainId}`;
+    //const URL = `https://project3back.herokuapp.com/api/mountains/${mountainId}`;
     
-
     const mountains = await fetch(URL, {
       method: 'DELETE'
     }).then(res => res.json());
@@ -146,13 +144,12 @@ export default function App() {
   }
 
   function handleEdit(mountainId) {
-    const { mountain, difficulty, state, firstTime, list, weather, comment, _id } = state.mountains.find(mountain => mountain._id === mountainId);
+    const { mountain, location, firstTime, list, weather, comment, _id } = state.mountains.find(mountain => mountain._id === mountainId);
     setState(prevState => ({
       ...prevState,
       newMountain: {
         mountain,
-        difficulty,
-        state,
+        location,
         firstTime,
         list,
         weather,
@@ -168,8 +165,7 @@ export default function App() {
       ...prevState,
        newMountain: {
         mountain,
-        difficulty,
-        state,
+        location,
         firstTime,
         list,
         weather,
@@ -185,14 +181,13 @@ export default function App() {
     <>
       <Header user={state.user} />
       <main>
-          <div className="results" >
+           <div  className="results" >
             {state.user &&
               <table > 
                 <tbody>
                   <tr>
                     <th>Mountain</th>
-                    <th>Difficulty</th>
-                    <th>State</th>
+                    <th>Location</th>
                     <th>First Time?</th>
                     <th>List</th>
                     <th>Weather</th>
@@ -204,8 +199,7 @@ export default function App() {
                   {state.mountains.map((s) => (
                     <tr key={s.mountain}>
                       <td>{s.mountain}</td>
-                      <td>{s.difficulty}</td>
-                      <td>{s.state}</td>
+                      <td>{s.location}</td>
                       <td>{s.firstTime}</td>
                       <td>{s.list}</td>
                       <td>{s.weather}</td>
@@ -219,45 +213,35 @@ export default function App() {
             }
              
           </div>
-        
+         
+
           {
             state.user && 
             <>
               <hr />
-              <form className='form' onSubmit={handleSubmit}>
-
+              <form onSubmit={handleSubmit}>
                 <label>
-                  <span className='inputs'>Mountain</span>
+                  <span>Mountain</span>
                   
                   <input
                     name="mountain"
+                    type="text"
+                    placeholder="Name of mountain"
                     value={state.newMountain.mountain}
                     onChange={handleChange}
                   />
                 </label>
 
-                <label>
-                  <span className='inputs'>Difficulty</span>
-                  <select
-                    name="difficulty"
-                    value={state.newMountain.difficulty}
-                    onChange={handleChange}
-                  >
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                  </select>
-                </label>
+             
 
-                <label>
-                  <span className='inputs'>State</span>
+              <label>
+                  <span>location</span>
                   <select
-                    name="difficulty"
-                    value={state.newMountain.state}
+                    name="location"
+                    value={state.newMountain.location}
                     onChange={handleChange}
                   >
+                    
                    	<option value="AL">Alabama</option>
                     <option value="AK">Alaska</option>
                     <option value="AZ">Arizona</option>
@@ -312,11 +296,14 @@ export default function App() {
                   </select>
                 </label>
 
+
                 
                 <label>
-                  <span className='inputs'>First time hiking this mountain?</span>
+                  <span>First time hiking this mountain?</span>
                   <select
                     name="firstTime"
+                    type="text"
+                    placeholder="Yes/No"
                     value={state.newMountain.firstTime}
                     onChange={handleChange}
                   >
@@ -327,9 +314,11 @@ export default function App() {
                 </label>
 
                 <label>
-                  <span className='inputs'>Peak List</span>
+                  <span>Peak List</span>
                   <select
                     name="list"
+                    type="text"
+                    placeholder="list"
                     value={state.newMountain.list}
                     onChange={handleChange}
                   >
@@ -342,20 +331,24 @@ export default function App() {
                 </label>
 
                 <label>
-                  <span className='inputs'>Weather</span>
+                  <span>Weather</span>
                   
                   <input
                     name="weather"
+                    placeholder='Weather conditions'
+                    type="text"
                     value={state.newMountain.weather}
                     onChange={handleChange}
                   />
                 </label>
 
                 <label>
-                  <span className='inputs'>Comments</span>
+                  <span>Comments</span>
                   
                   <input
                     name="comment"
+                    placeholder='share details about your hike'
+                    type="text"
                     value={state.newMountain.comment}
                     onChange={handleChange}
                   />
@@ -365,6 +358,7 @@ export default function App() {
                 {state.editMode && <button onClick={handleCancel}>CANCEL</button> }
             </>
           }
+    
       </main>
     </>
   );

@@ -6,9 +6,6 @@ import "./styles.css";
 import { auth } from "./services/firebase";
 
 
-
-
-
 export default function App() {
 
   const [state, setState] = useState({
@@ -30,8 +27,8 @@ export default function App() {
     if(!state.user) return;
     try {
   
-      const BASE_URL = `http://localhost:3001/api/mountains?uid=${state.user.uid}`;
-      //const BASE_URL = `https://project3back.herokuapp.com/api/mountains?uid=${state.user.uid}`
+      //const BASE_URL = `http://localhost:3001/api/mountains?uid=${state.user.uid}`;
+      const BASE_URL = `https://project3back.herokuapp.com/api/mountains?uid=${state.user.uid}`
       const mountains = await fetch(BASE_URL).then(res => res.json());
       setState((prevState) => ({
         ...prevState,
@@ -70,8 +67,8 @@ export default function App() {
     
     e.preventDefault();
     
-    const BASE_URL = 'http://localhost:3001/api/mountains';
-    //const BASE_URL = 'https://project3back.herokuapp.com/api/mountains';
+    //const BASE_URL = 'http://localhost:3001/api/mountains';
+    const BASE_URL = 'https://project3back.herokuapp.com/api/mountains';
 
     if(!state.editMode) {
 
@@ -135,8 +132,8 @@ export default function App() {
 
   async function handleDelete(mountainId) {
     if(!state.user) return;
-    const URL = `http://localhost:3001/api/mountains/${mountainId}`;
-    //const URL = `https://project3back.herokuapp.com/api/mountains/${mountainId}`;
+    //const URL = `http://localhost:3001/api/mountains/${mountainId}`;
+    const URL = `https://project3back.herokuapp.com/api/mountains/${mountainId}`;
     
     const mountains = await fetch(URL, {
       method: 'DELETE'
@@ -187,7 +184,6 @@ export default function App() {
       <Header user={state.user} />
         <HikeInfo user={state.user}/>
         
-  
         <main>
              
            <div  className="results" >
@@ -367,7 +363,7 @@ export default function App() {
                   <button>{state.editMode ? 'EDIT Mountain' : 'ADD Mountain'}</button>
               </form>
                 {state.editMode && <button onClick={handleCancel}>CANCEL</button> }
-               <SimpleSlider user={state.user} />
+               <SimpleSlider className ="slider" user={state.user} />
             </>
           }
     

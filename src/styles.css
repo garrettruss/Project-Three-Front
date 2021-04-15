@@ -118,3 +118,14 @@ tr:hover {
   align-items: baseline;
   align-content: space-around;
 }
+
+.slider {
+  text-align: center;
+  vertical-align: middle;
+  margin: 2%;
+  padding: 2%;
+  border: 2%;
+  width: 30vw;
+  height: 30vh;
+  margin-bottom: 5%;
+}

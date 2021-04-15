@@ -6,7 +6,8 @@ This single page app is designed for hikers to log in and record entries in a pe
 
 * HTML5
 * CSS3
-* JS
+* JavaScript
+* Mongoose
 * MongoDB
 * Express
 * React
@@ -19,11 +20,22 @@ This single page app is designed for hikers to log in and record entries in a pe
 
 ## App Design
 
+No user logged in:
+Table:
+Form:
 ## Getting Started
 
 * [view here](https://react-mountains-log.netlify.app) to see the app.
+* [view here] (https://github.com/garrettruss/Project-Three-Back) to see the backend.
 * [view here] (<https://trello.com/b/OdtgR4TS/project-3/>) to see trello board.
 
 ### Unsolved Issues
 
+* Implimenting mobile first design.
+
 ### Future Enhancements
+
+* Impliment react-router-dom for multiple pages.
+* Allow users to create new lists and fields for entry.
+* Allow users to upload images.
+* Allow users to share results on social media.

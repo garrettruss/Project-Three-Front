@@ -20,13 +20,14 @@ This single page app is designed for hikers to log in and record entries in a pe
 
 ## App Design
 
-No user logged in:
-Table:
-Form:
+No user logged in: (<https://github.com/garrettruss/Project-Three-Front/blob/main/src/Images/NoUser.png>)
+Table: (<https://github.com/garrettruss/Project-Three-Front/blob/main/src/Images/Table.png>)
+Form: (<https://github.com/garrettruss/Project-Three-Front/blob/main/src/Images/EditForm.png>)
+
 ## Getting Started
 
 * [view here](https://react-mountains-log.netlify.app) to see the app.
-* [view here] (https://github.com/garrettruss/Project-Three-Back) to see the backend.
+* [view here] (<https://github.com/garrettruss/Project-Three-Back>) to see the backend.
 * [view here] (<https://trello.com/b/OdtgR4TS/project-3/>) to see trello board.
 
 ### Unsolved Issues

@@ -248,7 +248,7 @@ export default function App() {
                     value={state.newMountain.location}
                     onChange={handleChange}
                   >
-                    
+                    <option value="Abroad">Abroad</option>
                    	<option value="AL">Alabama</option>
                     <option value="AK">Alaska</option>
                     <option value="AZ">Arizona</option>
@@ -300,6 +300,7 @@ export default function App() {
                     <option value="WV">West Virginia</option>
                     <option value="WI">Wisconsin</option>
                     <option value="WY">Wyoming</option>
+                    
                   </select>
                 </label>
 
@@ -334,6 +335,9 @@ export default function App() {
                     <option value="ME 4000 Footer Club">ME 4000 Footer Club</option>
                     <option value="State Highpoints">State Highpoints</option>
                     <option value="Adirondack High Peaks">Adirondack High Peaks</option>
+                    <option value="Appalachian Trail">Appalachian Trail</option>
+                    <option value="Pacific Crest Trail">Pacific Crest Trail</option>
+                    <option value="Continental Divide Trail">Continental Divide Trail</option>
                   </select>
                 </label>
 

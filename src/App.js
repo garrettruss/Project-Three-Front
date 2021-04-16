@@ -338,6 +338,7 @@ export default function App() {
                     <option value="Appalachian Trail">Appalachian Trail</option>
                     <option value="Pacific Crest Trail">Pacific Crest Trail</option>
                     <option value="Continental Divide Trail">Continental Divide Trail</option>
+                    <option value="International Hikes">International Hikes</option>
                   </select>
                 </label>
 

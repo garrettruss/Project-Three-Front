@@ -13,7 +13,7 @@ const HikeInfo = (props) => (
                 </>
                 :
                 <div >
-                    <div className='noUserScreen'> Welcome to our Peak Bagger Log site. This site is dedicated for those who dream of peaks and want to remember what they have done!  </div> 
+                    <div className='noUserScreen'> Welcome to our Peak Bagger Log site. This site is dedicated for those who dream of peaks.  </div> 
                     <p className='quote'> “Somewhere between the bottom of the climb and the summit is the answer to the mystery why we climb.” - Greg Child</p>
                 </div>
             }

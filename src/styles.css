@@ -13,9 +13,8 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-   background-color: #ebeae3;
+  background-color: #ebeae3;
 }
-
 
 main {
   flex-grow: 1;
@@ -23,11 +22,9 @@ main {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  overflow-x: auto;
-   margin: 1%;
-   padding: 1%;
-   border: 1%;
-  
+  margin: 1%;
+  padding: 1%;
+  border: 1%;
 }
 
 input,
@@ -70,11 +67,12 @@ table {
   text-align: center;
   border-spacing: 5%;
   background-color: #f2f2f2;
-
+  overflow-x: auto;
 }
 
 .results {
   overflow-x: auto;
+  padding: 1%;
   margin: 1%;
 }
 
@@ -94,7 +92,6 @@ table {
    word-wrap: break-word;
  }
 
-
 th {
   background-color: #4CAF50;
   color: white;
@@ -102,7 +99,6 @@ th {
   padding: 3%;
   font-weight: bold;
 }
-
 
 tr:nth-child(even) {
   background-color: #cfc9c9;
